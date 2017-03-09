@@ -1,3 +1,31 @@
+Function ```removeById($id)``` Need Add Position Checking function
+
+```
+    /**
+     * Removes position from the cart by ID
+     * @param string $id
+     */
+    public function removeById($id)
+    {
+		if ($this->hasPosition($id)){ //ADD THIS LINE TO AVOID PASTING REMOVAL URL IN BROWSER
+            $this->trigger(self::EVENT_BEFORE_POSITION_REMOVE, new CartActionEvent([
+                'action' => CartActionEvent::ACTION_BEFORE_REMOVE,
+                'position' => $this->_positions[$id],
+            ]));
+            $this->trigger(self::EVENT_CART_CHANGE, new CartActionEvent([
+                'action' => CartActionEvent::ACTION_BEFORE_REMOVE,
+                'position' => $this->_positions[$id],
+            ]));
+            unset($this->_positions[$id]);
+            if ($this->storeInSession)
+                $this->saveToSession();
+        }
+    }
+```
+
+
+
+
 Shopping cart for Yii 2
 =======================
 
