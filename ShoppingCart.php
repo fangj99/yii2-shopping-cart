@@ -166,17 +166,19 @@ class ShoppingCart extends Component
      */
     public function removeById($id)
     {
-        $this->trigger(self::EVENT_BEFORE_POSITION_REMOVE, new CartActionEvent([
-            'action' => CartActionEvent::ACTION_BEFORE_REMOVE,
-            'position' => $this->_positions[$id],
-        ]));
-        $this->trigger(self::EVENT_CART_CHANGE, new CartActionEvent([
-            'action' => CartActionEvent::ACTION_BEFORE_REMOVE,
-            'position' => $this->_positions[$id],
-        ]));
-        unset($this->_positions[$id]);
-        if ($this->storeInSession)
-            $this->saveToSession();
+		if ($this->hasPosition($id)){ //ADD THIS LINE TO AVOID PASTING REMOVAL URL IN BROWSER
+            $this->trigger(self::EVENT_BEFORE_POSITION_REMOVE, new CartActionEvent([
+                'action' => CartActionEvent::ACTION_BEFORE_REMOVE,
+                'position' => $this->_positions[$id],
+            ]));
+            $this->trigger(self::EVENT_CART_CHANGE, new CartActionEvent([
+                'action' => CartActionEvent::ACTION_BEFORE_REMOVE,
+                'position' => $this->_positions[$id],
+            ]));
+            unset($this->_positions[$id]);
+            if ($this->storeInSession)
+                $this->saveToSession();
+        }
     }
 
     /**
