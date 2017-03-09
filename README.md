@@ -1,4 +1,4 @@
-Function ```removeById($id)``` Need Add Position Checking Function
+#Function ```removeById($id)``` Need Add Position Checking Function
 
 ```
     /**
