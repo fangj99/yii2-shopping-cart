@@ -1,5 +1,8 @@
 #Function ```removeById($id)``` Need Add Position Checking Function
 
+##https://xxxxxxxxxxxx.com/cart/remove?id=1  will cause error if cart already empty
+
+
 ```
     /**
      * Removes position from the cart by ID
